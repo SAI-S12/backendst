@@ -6,5 +6,4 @@ import { login, register } from "../Controller/Controller.js"
 router.post("/api",register)
 router.post("/login",login)
 
-
 export default router;
