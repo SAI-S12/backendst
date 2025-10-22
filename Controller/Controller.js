@@ -30,18 +30,14 @@ export const login = async (req, res) => {
         if (!newuser) {
             return res.status(400).json({ message: "user not found mother fucker ", });
         }
-        const cpassword = await User.findOne({ password })
-        const rpassword = await bcrypt.compare(password, cpassword)
-        if (rpassword) {
+     const isPasswordCorrect = await bcrypt.compare(password, newuser.password)
+        if (!isPasswordCorrect) {
             return res.status(400).json({ message: "password incorrect madarchod " })
         }
-
-
-
         const username = await User.findOne({ username })
         const token = jwt.sign({ email }, SECRETE_KEY, { expiresIn: "1hr" })
         res.status(200).json({
-            message: "login success wellcome madarchod  ",    // assuming your User model has a username field
+            message: "login success wellcome madarchod  ", 
             token: token, username: username
         })
     } catch (error) {
