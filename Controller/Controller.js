@@ -34,11 +34,12 @@ export const login = async (req, res) => {
         if (!isPasswordCorrect) {
             return res.status(400).json({ message: "password incorrect madarchod " })
         }
-        const username = await User.findOne({ username })
+
         const token = jwt.sign({ email }, SECRETE_KEY, { expiresIn: "1hr" })
-        res.status(200).json({
+       return res.status(200).json({
             message: "login success wellcome madarchod  ", 
-            token: token, username: username
+            token: token,
+            username:User.username
         })
     } catch (error) {
         res.status(500).json({ message: "look at try block madarchod" })
